@@ -40,4 +40,8 @@ env/
 
 # OS
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Project specific
+/debug/
+/migrations/ 
