@@ -1,0 +1,389 @@
+{
+  "document_id": "4f1811ce-b55c-49cd-b45a-9ddfc0c9fef4",
+  "events": [
+    {
+      "event_date": "1837-04-17T00:00:00",
+      "title": "Birth of J. P. Morgan",
+      "description": "J. P. Morgan was born in Hartford, Connecticut",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": "Hartford, Connecticut",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1854-01-01T00:00:00",
+      "title": "Junius Spencer Morgan settles in England",
+      "description": "Junius Spencer Morgan settled in England and lived there for the remainder of his life",
+      "importance": 3,
+      "category": "Life Event",
+      "actors": [
+        "Junius Spencer Morgan"
+      ],
+      "location": "England",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1860-01-01T00:00:00",
+      "title": "J. P. Morgan establishes his own company",
+      "description": "In 1860 Morgan set up his own company, leveraging business from his father in London and opportunities in New York",
+      "importance": 4,
+      "category": "Career Event",
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": "New York",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1861-01-01T00:00:00",
+      "title": "J. P. Morgan marries Amelia Sturges",
+      "description": "In 1861 he married Amelia Sturges, who was in the advanced stages of tuberculosis",
+      "importance": 3,
+      "category": "Life Event",
+      "actors": [
+        "J. P. Morgan",
+        "Amelia Sturges"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.8
+    },
+    {
+      "event_date": "1862-01-01T00:00:00",
+      "title": "J. P. Morgan becomes a widower",
+      "description": "Morgan returned to the United States as a widower in 1862 after failing to cure his wife's tuberculosis",
+      "importance": 3,
+      "category": "Life Event",
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1862-01-01T00:00:00",
+      "title": "Formation of J. P. Morgan and Company, Bankers",
+      "description": "In 1862, he formed a partnership with his cousin, Jim Goodwin, and called the firm J. P. Morgan and Company, Bankers",
+      "importance": 4,
+      "category": "Career Event",
+      "actors": [
+        "J. P. Morgan",
+        "Jim Goodwin"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1864-09-01T00:00:00",
+      "title": "Morgan takes in new partners and reorganizes as Dabney, Morgan and Company",
+      "description": "Morgan spent that part of the war that followed his short-lived first marriage in making money as rapidly as he could. In September 1864 he took in new partners and reorganized as Dabney, Morgan and Company.",
+      "importance": 4,
+      "category": "Business",
+      "actors": [
+        "Morgan"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1865-01-01T00:00:00",
+      "title": "Morgan marries Frances Tracy",
+      "description": "In 1865 he married Frances Tracy, one of the six daughters of attorney Charles Tracy.",
+      "importance": 3,
+      "category": "Life Event",
+      "actors": [
+        "Morgan",
+        "Frances Tracy"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1869-06-01T00:00:00",
+      "title": "Morgan and his wife tour California",
+      "description": "In the summer of 1869, Morgan and his wife, accompanied by two relatives, rode the new transcontinental railroad to Utah and to California, where they toured extensively by stagecoach and horseback.",
+      "importance": 2,
+      "category": "Travel",
+      "actors": [
+        "Morgan",
+        "Frances Tracy"
+      ],
+      "location": "California, United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1871-01-01T00:00:00",
+      "title": "Morgan considers retiring",
+      "description": "In 1871, troubled by nervous disorders, Morgan briefly considered retiring.",
+      "importance": 3,
+      "category": "Life Event",
+      "actors": [
+        "Morgan"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1877-06-01T00:00:00",
+      "title": "Morgan lends money to U.S. Army",
+      "description": "In the summer of 1877, Morgan lent the U.S. Army money to pay its troops after Congress had adjourned without setting aside the money.",
+      "importance": 5,
+      "category": "Financial Event",
+      "actors": [
+        "Morgan",
+        "U.S. Army",
+        "Congress"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 0.95
+    },
+    {
+      "event_date": "1879-01-01T00:00:00",
+      "title": "Morgan sells William Vanderbilt's shares of New York Central Railroad",
+      "description": "In 1879 he performed a more sedate but much more lucrative feat in selling William Vanderbilt's 250,000 shares of New York Central Railroad stock (87 percent of those in existence) without suffering any depreciation (loss in value) or inciting anyone to try to displace the railroad's management.",
+      "importance": 4,
+      "category": "Business",
+      "actors": [
+        "Morgan",
+        "William Vanderbilt"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1880-01-01T00:00:00",
+      "title": "The year of enormous challenge and profit",
+      "description": "The year 1880 brought another enormous challenge, converted into enormous profits.",
+      "importance": 4,
+      "category": "Business",
+      "actors": [
+        "Morgan"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1880-01-01T00:00:00",
+      "title": "Selling of $40 million in bonds for the Northern Pacific",
+      "description": "In 1880, there was an enormous challenge of selling $40 million in bonds for the Northern Pacific, a transcontinental that had suffered bankruptcy and reorganization in the Panic of 1873.",
+      "importance": 4,
+      "category": "Financial Event",
+      "actors": [
+        "Northern Pacific",
+        "Morgan"
+      ],
+      "location": "United States",
+      "event_references": [
+        "Panic of 1873"
+      ],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1881-01-01T00:00:00",
+      "title": "Morgan builds a home at 219 Madison Avenue",
+      "description": "Morgan built a home at 219 Madison Avenue in 1881 which he later used to house his collection of rare manuscripts and books.",
+      "importance": 3,
+      "category": "Real Estate",
+      "actors": [
+        "Morgan"
+      ],
+      "location": "219 Madison Avenue",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1890-01-01T00:00:00",
+      "title": "Morgan starts collecting art",
+      "description": "Morgan began buying rare and old works of art on an immense scale after the death of his father.",
+      "importance": 4,
+      "category": "Art Collection",
+      "actors": [
+        "Morgan"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1893-01-01T00:00:00",
+      "title": "Saving the U.S. Treasury's gold reserve",
+      "description": "In 1893, Morgan had to form a syndicate of American and European bankers to stop the flow of gold from the Treasury out of the country.",
+      "importance": 5,
+      "category": "Financial Event",
+      "actors": [
+        "Morgan",
+        "U.S. Treasury"
+      ],
+      "location": "United States",
+      "event_references": [
+        "Panic of 1893"
+      ],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1901-01-01T00:00:00",
+      "title": "Formation of U.S. Steel Corporation",
+      "description": "In 1901, Morgan formed the United States Steel Corporation, the world's first billion-dollar corporation.",
+      "importance": 5,
+      "category": "Business Event",
+      "actors": [
+        "Morgan",
+        "U.S. Steel Corporation"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1904-01-01T00:00:00",
+      "title": "Antitrust prosecution of Northern Pacific and Great Northern merger",
+      "description": "In 1904, the government won the lawsuit against the merger of the Northern Pacific railroad with its regional rival, the Great Northern, contending that the combination would be too powerful and in violation of antitrust law.",
+      "importance": 5,
+      "category": "Legal Event",
+      "actors": [
+        "Morgan",
+        "Northern Pacific",
+        "Great Northern",
+        "Theodore Roosevelt"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1907-01-01T00:00:00",
+      "title": "Morgan prevents a financial panic",
+      "description": "In 1907, Morgan led a syndicate of bankers to prevent a financial panic.",
+      "importance": 5,
+      "category": "Financial Event",
+      "actors": [
+        "Morgan"
+      ],
+      "location": "New York, United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1912-01-01T00:00:00",
+      "title": "Morgan summoned before the Pujo Committee",
+      "description": "In 1912, Morgan was summoned before the Pujo Committee, which charged him with controlling all the large banks, railroads, and steel companies of the United States through interlocking directorships and stockholdings.",
+      "importance": 5,
+      "category": "Political Event",
+      "actors": [
+        "Morgan",
+        "Pujo Committee"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1913-03-31T00:00:00",
+      "title": "Death of J. P. Morgan",
+      "description": "J. P. Morgan died in Rome, Italy",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": "Rome, Italy",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1913-03-31T00:00:00",
+      "title": "Death of Morgan in Rome",
+      "description": "Morgan died during one of his periods of travel in Rome, Italy.",
+      "importance": 5,
+      "category": "Death",
+      "actors": [
+        "Morgan"
+      ],
+      "location": "Rome, Italy",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1970-01-01T00:00:00",
+      "title": "Publication of Merchants and Masterpieces: The Story of the Metropolitan",
+      "description": "The book by E. P. Dutton was published.",
+      "importance": 4,
+      "category": "Publication Event",
+      "actors": [
+        "E. P. Dutton"
+      ],
+      "location": null,
+      "event_references": [
+        "Morgan, J. P."
+      ],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "2011-01-01T00:00:00",
+      "title": "Publication of UXL Biographies",
+      "description": "The book titled 'UXL Biographies' was published by UXL.",
+      "importance": 3,
+      "category": "Publication Event",
+      "actors": [
+        "UXL"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "2017-01-09T00:00:00",
+      "title": "Access of J. P. Morgan document",
+      "description": "The document titled 'J. P. Morgan' was accessed.",
+      "importance": 2,
+      "category": "Research Event",
+      "actors": [],
+      "location": "go.galegroup.com",
+      "event_references": [
+        "GALE|EJ2108101611"
+      ],
+      "page_or_section_references": [],
+      "confidence_score": 0.8
+    }
+  ]
+}

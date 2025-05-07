@@ -1,0 +1,192 @@
+{
+  "document_id": "e4dfa1d4-130f-49e4-a81c-d46d8d7b0b3e",
+  "events": [
+    {
+      "event_date": "1837-04-17T00:00:00",
+      "title": "Birth of J. P. Morgan",
+      "description": "J. P. Morgan was born in Hartford, Connecticut, United States.",
+      "importance": 5,
+      "category": null,
+      "actors": [],
+      "location": "Hartford, Connecticut, United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1854-01-01T00:00:00",
+      "title": "Morgan's father settles in England",
+      "description": "Junius Spencer Morgan, J. P. Morgan's father, settled in England and lived there for the remainder of his life.",
+      "importance": 2,
+      "category": null,
+      "actors": [
+        "Junius Spencer Morgan"
+      ],
+      "location": "England",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1860-01-01T00:00:00",
+      "title": "Morgan sets up his own company",
+      "description": "J. P. Morgan set up his own company, taking advantage of many opportunities to buy and sell in the booming commercial city of New York.",
+      "importance": 4,
+      "category": null,
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": "New York",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1861-01-01T00:00:00",
+      "title": "Morgan marries Amelia Sturges",
+      "description": "J. P. Morgan married Amelia Sturges, who was in the advanced stages of tuberculosis. He gave up all commercial activities and took his stricken bride to Algiers, Algeria, and then to Nice, France, hoping to cure her.",
+      "importance": 3,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "Amelia Sturges"
+      ],
+      "location": "Algiers, Algeria; Nice, France",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1862-01-01T00:00:00",
+      "title": "Morgan forms partnership with Jim Goodwin",
+      "description": "After the death of his first wife, J. P. Morgan formed a partnership with his cousin, Jim Goodwin, and called the firm J. P. Morgan and Company, Bankers.",
+      "importance": 4,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "Jim Goodwin"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1865-01-01T00:00:00",
+      "title": "Morgan marries Frances Tracy",
+      "description": "J. P. Morgan married Frances Tracy, one of the six daughters of attorney Charles Tracy.",
+      "importance": 2,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "Frances Tracy"
+      ],
+      "location": "St. George's Episcopal Church",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1869-01-01T00:00:00",
+      "title": "Morgan tours California",
+      "description": "J. P. Morgan and his wife, accompanied by two relatives, rode the new transcontinental railroad to Utah and to California, where they toured extensively by stagecoach and horseback.",
+      "importance": 2,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "Frances Tracy"
+      ],
+      "location": "Utah; California",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1871-01-01T00:00:00",
+      "title": "Morgan partners with the Drexels",
+      "description": "J. P. Morgan accepted a new partnership with the powerful Drexels of Philadelphia. He became a full partner and headed their New York office under the title of Drexel, Morgan, and Company.",
+      "importance": 4,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "Drexels"
+      ],
+      "location": "New York; Philadelphia",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1877-01-01T00:00:00",
+      "title": "Morgan lends money to U.S. Army",
+      "description": "Morgan lent the U.S. Army money with which to pay its troops, after a distracted Congress had adjourned without setting aside the money.",
+      "importance": 4,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "U.S. Army"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1890-01-01T00:00:00",
+      "title": "Morgan's father dies",
+      "description": "After the death of his father in 1890, J. P. Morgan began buying rare and old works of art on an immense scale.",
+      "importance": 3,
+      "category": null,
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1901-01-01T00:00:00",
+      "title": "Formation of United States Steel Corporation",
+      "description": "In 1901, J. P. Morgan formed the United States Steel Corporation, the world's first billion-dollar corporation.",
+      "importance": 5,
+      "category": null,
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1904-01-01T00:00:00",
+      "title": "Government lawsuit against Morgan",
+      "description": "Theodore Roosevelt, the Progressive president, ordered an antitrust prosecution, contending that the combination of the two railroads would be too powerful and in violation of antitrust law. The government won the lawsuit in 1904, and the merger fell apart.",
+      "importance": 4,
+      "category": null,
+      "actors": [
+        "J. P. Morgan",
+        "Theodore Roosevelt"
+      ],
+      "location": "United States",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1913-03-31T00:00:00",
+      "title": "Death of J. P. Morgan",
+      "description": "J. P. Morgan died during one of his periods of travel in Rome, Italy.",
+      "importance": 5,
+      "category": null,
+      "actors": [
+        "J. P. Morgan"
+      ],
+      "location": "Rome, Italy",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    }
+  ]
+}

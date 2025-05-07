@@ -1,0 +1,279 @@
+{
+  "document_id": "d27b1473-2420-466c-be10-815dae9c3fd2",
+  "events": [
+    {
+      "event_date": "1957-10-21T00:00:00",
+      "title": "Birth of Wolfgang Ketterle",
+      "description": "Wolfgang Ketterle was born in Heidelberg, Germany",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "Wolfgang Ketterle"
+      ],
+      "location": "Heidelberg, Germany",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1958-01-01T00:00:00",
+      "title": "W.K. Realisation on his career path",
+      "description": "At 32, W.K. realised his interest in basic research and identified the field of cold atoms as a promising area.",
+      "importance": 4,
+      "category": "Career",
+      "actors": [
+        "W.K."
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1960-01-01T00:00:00",
+      "title": "Family moved to Eppelheim",
+      "description": "When Wolfgang Ketterle was three, his family moved from Heidelberg to Eppelheim",
+      "importance": 3,
+      "category": "Life Event",
+      "actors": [
+        "Wolfgang Ketterle",
+        "Family"
+      ],
+      "location": "Eppelheim, Germany",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    },
+    {
+      "event_date": "1971-01-01T00:00:00",
+      "title": "Family Picture",
+      "description": "Wolfgang Ketterle had a family picture with his parents and siblings",
+      "importance": 2,
+      "category": "Life Event",
+      "actors": [
+        "Wolfgang Ketterle",
+        "Parents",
+        "Siblings"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.8
+    },
+    {
+      "event_date": "1976-01-01T00:00:00",
+      "title": "Entered University of Heidelberg",
+      "description": "In 1976, W.K. entered the University of Heidelberg, located in his home town.",
+      "importance": 5,
+      "category": "Education",
+      "actors": [
+        "W.K.",
+        "University of Heidelberg"
+      ],
+      "location": "Heidelberg, Germany",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1976-12-01T00:00:00",
+      "title": "Received Fellowship from Studienstiftung des Deutschen Volkes",
+      "description": "Before starting university, W.K. received a fellowship from Studienstiftung des Deutschen Volkes (German National Merit Foundation).",
+      "importance": 4,
+      "category": "Education",
+      "actors": [
+        "W.K.",
+        "Studienstiftung des Deutschen Volkes"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1980-01-01T00:00:00",
+      "title": "Photo with family",
+      "description": "A photo of W.K. (second from left) with his parents and siblings was taken.",
+      "importance": 2,
+      "category": "Life Event",
+      "actors": [
+        "W.K.",
+        "Parents",
+        "Siblings"
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 0.8
+    },
+    {
+      "event_date": "1983-07-01T00:00:00",
+      "title": "Started Ph.D. Research",
+      "description": "In July 1983, during the first year of his Ph.D. research, W.K. is sitting in front of the racks controlling an ion beam of triatomic hydrogen.",
+      "importance": 5,
+      "category": "Education",
+      "actors": [
+        "W.K."
+      ],
+      "location": null,
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1986-01-01T00:00:00",
+      "title": "Marriage of W.K. and Gabriele Sauer",
+      "description": "W.K. marries Gabriele Sauer, whom he had known since high school.",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "W.K.",
+        "Gabriele Sauer"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1986-01-01T00:00:00",
+      "title": "Birth of Jonas",
+      "description": "W.K. and Gabriele Sauer had their first child, Jonas.",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "W.K.",
+        "Gabriele Sauer",
+        "Jonas"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1986-05-01T00:00:00",
+      "title": "Defended Ph.D. Thesis",
+      "description": "W.K. defended his Ph.D. thesis on the subject of trace analysis of semiconductors using laser spectroscopy.",
+      "importance": 5,
+      "category": "Education",
+      "actors": [
+        "W.K.",
+        "Prof. Herbert Walther",
+        "Dr. Hartmut Figger",
+        "Max Planck Institute for Quantum Optics"
+      ],
+      "location": "Garching, Germany",
+      "event_references": [],
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1988-01-01T00:00:00",
+      "title": "Postdoc at the Max-Planck Institute for Quantum Optics",
+      "description": "After earning his Ph.D., the author stayed at the Max-Planck Institute as a postdoc, working on laser excitation of Rydberg states of triatomic hydrogen and helium hydride. He also succeeded in analyzing all the emission spectra of helium hydride, which he had discovered during his Ph.D.",
+      "importance": 4,
+      "category": "Academic",
+      "actors": [
+        "Author"
+      ],
+      "location": "Max-Planck Institute for Quantum Optics",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1988-01-01T00:00:00",
+      "title": "Transition to Applied Research",
+      "description": "The author decided to pursue applied research in a university setting, maintaining at least some of the freedom of academic research. He joined the group of Prof. J\u00fcrgen Wolfrum at the University of Heidelberg. There, he worked in physical chemistry, focusing on combustion diagnostics with lasers. Molecular spectroscopy, in which he was an expert by this time, was used to measure temperature and molecular concentrations in a flame.",
+      "importance": 3,
+      "category": "Career",
+      "actors": [
+        "Author",
+        "Prof. J\u00fcrgen Wolfrum"
+      ],
+      "location": "University of Heidelberg",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1988-01-01T00:00:00",
+      "title": "Collaboration with Volkswagen",
+      "description": "One of his main projects was carried out in collaboration with the Volkswagen company. They had to transport a truckload of lasers and equipment to an engine test stand at the plant and encountered problems such as soot on the windows of the transparent engine and optics dripping with oil coming from a Diesel engine.",
+      "importance": 4,
+      "category": "Project",
+      "actors": [
+        "Author",
+        "Volkswagen"
+      ],
+      "location": "Volkswagen plant",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1988-01-01T00:00:00",
+      "title": "Birth of Johanna",
+      "description": "W.K. and Gabriele Sauer had their second child, Johanna.",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "W.K.",
+        "Gabriele Sauer",
+        "Johanna"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1990-03-01T00:00:00",
+      "title": "W.K. joins Dave Pritchard\u2019s group at MIT",
+      "description": "In the spring of 1990, W.K. joined Dave Pritchard\u2019s group at MIT. During the first year at MIT, he was supported by a fellowship of DAAD (Deutscher Akademischer Auslandsdienst).",
+      "importance": 4,
+      "category": "Career",
+      "actors": [
+        "W.K.",
+        "Dave Pritchard",
+        "MIT"
+      ],
+      "location": "MIT",
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "1992-01-01T00:00:00",
+      "title": "Birth of Holger",
+      "description": "W.K. and Gabriele Sauer had their third child, Holger.",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "W.K.",
+        "Gabriele Sauer",
+        "Holger"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 1.0
+    },
+    {
+      "event_date": "2001-01-01T00:00:00",
+      "title": "Separation of W.K. and Gabriele Sauer",
+      "description": "W.K. and Gabriele Sauer separated two months before it was announced that W.K. was awarded the Nobel prize.",
+      "importance": 5,
+      "category": "Life Event",
+      "actors": [
+        "W.K.",
+        "Gabriele Sauer"
+      ],
+      "location": null,
+      "event_references": null,
+      "page_or_section_references": [],
+      "confidence_score": 0.9
+    }
+  ]
+}

@@ -1,0 +1,828 @@
+# Product Requirements Document: Klective
+
+## 1. Overview
+
+### 1.1 Product Vision
+Klective is a document analysis platform that transforms unstructured content from various document formats into structured, chronological timelines. The system extracts key events from documents, organizes them by date, and visualizes them in interactive time series interfaces, both individually and across document collections.
+
+### 1.2 Product Goals
+- Enable users to extract chronological events from multiple document types automatically
+- Provide visual timeline representations of document events
+- Allow analysis of event patterns across multiple related documents
+- Support document organization through custom collections
+- Facilitate document content retrieval through embedded search capabilities
+
+### 1.3 Target Users
+- Legal professionals analyzing case documents
+- Researchers reviewing historical documents
+- Financial analysts examining reporting timelines
+- Project managers tracking milestone documentation
+- Compliance officers monitoring regulatory events
+- Historians organizing chronological evidence
+- Forensic investigators analyzing witness statements
+
+### 1.4 Supported Document Types
+Using Unstructured library, the system will support:
+- PDF documents (.pdf)
+- Word documents (.docx, .doc)
+- PowerPoint presentations (.pptx, .ppt)
+- Excel spreadsheets (.xlsx, .xls)
+- Plain text files (.txt)
+- HTML documents (.html, .htm)
+- Email files (.eml, .msg)
+- Image files with text (.png, .jpg) via OCR
+- Markdown files (.md)
+- JSON and XML files (.json, .xml)
+
+## 2. System Architecture
+
+### 2.1 High-Level Architecture
+```
+┌─────────────────┐     ┌──────────────────────────┐     ┌─────────────────┐
+│                 │     │                          │     │                 │
+│  Streamlit UI   │────▶│  Pydantic Agent Workflow │────▶│  Supabase DB    │
+│                 │     │  (Unstructured + LLM)    │     │                 │
+│                 │     │                          │     │                 │
+└─────────────────┘     └──────────────────────────┘     └─────────────────┘
+```
+
+### 2.2 Key Components
+1. **Streamlit Application**: Python-based web interface for user interactions
+2. **Document Processor Agent**: Pydantic-based agent using Unstructured for content extraction and summarization
+3. **Timeline Extractor Agent**: Pydantic-based agent using Unstrucutred and OpenAI to extract events from processed documents
+3. **Timeline Generator Agent**: Creates timeline visualizations from Supabase event schemas
+4. **Supabase Database**: Stores collections, documents, embeddings, and event schemas
+
+## 3. Data Models
+
+### 3.1 Collection Model
+```python
+class Collection(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    name: str
+    description: Optional[str] = None
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+    user_id: UUID
+```
+
+### 3.2 Document Model
+```python
+class Document(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    collection_id: UUID
+    file_name: str
+    file_path: str
+    file_size: int
+    mime_type: str  # More flexible mime_type field
+    uploaded_at: datetime = Field(default_factory=datetime.now)
+    processed: bool = False
+    processed_at: Optional[datetime] = None
+    summary: Optional[str] = None
+    extraction_metadata: Optional[Dict[str, Any]] = None  # Unstructured metadata
+    user_id: UUID
+```
+
+### 3.3 Event Schema
+```python
+class TimelineEvent(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    document_id: UUID
+    event_date: datetime
+    title: str
+    description: str
+    importance: int = Field(ge=1, le=10)
+    category: Optional[str] = None
+    actors: List[str] = []
+    location: Optional[str] = None
+    references: Optional[Dict[str, str]] = None
+    page_or_section_references: List[str] = []  # More flexible for different doc types
+    confidence_score: float = Field(ge=0.0, le=1.0, default=1.0)  # Confidence in date extraction
+```
+
+### 3.4 Embedding Model
+```python
+class DocumentEmbedding(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    document_id: UUID
+    chunk_index: int
+    content: str
+    embedding: List[float]
+    source_element_id: str  # Reference to original element from Unstructured
+    element_type: str  # Type of element (paragraph, title, list, etc.)
+    element_metadata: Dict[str, Any] = {}  # Element-specific metadata
+```
+
+## 4. User Stories & Flows
+
+### 4.1 Collection Management
+**As a user, I want to create and manage document collections**
+
+Flow:
+1. User navigates to Collections page in Streamlit sidebar
+2. User selects "Create New Collection"
+3. User provides name and optional description
+4. System creates collection with unique ID
+5. Collection appears in user's collection list
+
+### 4.2 Document Upload
+**As a user, I want to upload documents of different types to my collections**
+
+Flow:
+1. User selects a collection from dropdown
+2. User uses Streamlit file uploader to select documents
+3. System validates file types against supported formats
+4. Files are uploaded to storage and associated with collection
+5. Documents appear in "Unprocessed" state with file type indicators
+
+### 4.3 Document Processing
+**As a user, I want to process my uploaded documents**
+
+Using RecursiveCharacterTextSplitter we will add a new function combine_summaries that:
+1. Takes a list of summaries and a batch size (default 3)
+2. If the number of summaries is less than or equal to the batch size, combines them directly
+3. Otherwise, splits the summaries into batches and recursively combines them
+This ensures we never try to combine too many summaries at once
+The process works like this:
+Document is split into chunks (e.g., 10 chunks)
+Each chunk is summarized individually
+The summaries are combined in batches of 3:
+First level: [1,2,3] → A, [4,5,6] → B, [7,8,9] → C, [10] → D
+Second level: [A,B,C] → X, [D] → Y
+Final level: [X,Y] → Final Summary
+This approach ensures that we never exceed the model's context length limit because:
+1. Each chunk is processed individually
+2. Summaries are combined in small batches
+3. The recursive combination process maintains manageable input sizes at each step
+
+Flow:
+1. User selects unprocessed documents with checkboxes
+2. User clicks "Process Documents" button
+3. System initiates processing workflow with progress bar:
+   - Unstructured extracts content based on file type
+   - Content is chunked and embedded for search
+   - LLM generates 2-sentence summary
+   - LLM extracts timeline events and generates JSON schema
+4. Processing status updates in real-time with Streamlit spinner
+5. Once complete, documents move to "Processed" state
+
+### 4.4 Individual Document Timeline
+**As a user, I want to view a processed document as a timeline**
+
+Flow:
+1. User selects a processed document
+2. System loads the document's JSON event schema
+3. Timeline Generator Agent renders visualization using Plotly
+4. User views interactive timeline with event details
+5. User can filter, zoom, and navigate the timeline
+
+### 4.5 Collection Timeline
+**As a user, I want to view aggregated timelines across multiple documents**
+
+Flow:
+1. User navigates to collection view
+2. User selects multiple documents using checkboxes
+3. System aggregates event schemas from selected documents
+4. Timeline Generator creates combined visualization
+5. Events display with document source indicators
+6. User can filter by document, date range, or event categories
+
+### 4.6 Document Search
+**As a user, I want to search across my document collection**
+
+Flow:
+1. User enters search query in Streamlit text input
+2. System performs semantic search against document embeddings
+3. Results display with document name, file type, and relevance score
+4. User can select results to view in timeline context
+
+## 5. Technical Requirements
+
+### 5.1 Agent Workflow Specification
+
+#### 5.1.1 Document Processor Agent
+```python
+class DocumentProcessorAgent(BaseModel):
+    """Agent responsible for processing documents using Unstructured"""
+    
+    async def process_document(self, document_id: UUID) -> ProcessingResult:
+        """Main processing pipeline for a document"""
+        # 1. Retrieve document from storage
+        # 2. Extract content using Unstructured based on file type
+        # 3. Create structured elements
+        # 4. Generate embeddings
+        # 5. Store embeddings in Supabase
+        # 6. Generate document summary
+        # 7. Extract timeline events
+        # 8. Generate JSON schema
+        # 9. Store schema in Supabase
+        # 10. Update document status
+        
+    async def extract_content(self, file_path: str, mime_type: str) -> List[Element]:
+        """Extract content from document using Unstructured"""
+        # Use appropriate Unstructured partition function based on mime_type
+        
+    async def create_chunks(self, elements: List[Element]) -> List[TextChunk]:
+        """Process elements into semantic chunks"""
+        
+    async def generate_embeddings(self, chunks: List[TextChunk]) -> List[DocumentEmbedding]:
+        """Create vector embeddings for chunks"""
+        
+    async def generate_summary(self, elements: List[Element]) -> str:
+        """Generate a concise document summary"""
+        
+    async def extract_events(self, elements: List[Element]) -> List[TimelineEvent]:
+        """Identify and extract chronological events"""
+        
+    async def detect_dates(self, text: str) -> List[DetectedDate]:
+        """Extract and normalize dates from text using NLP"""
+```
+
+#### 5.1.2 Timeline Generator Agent
+```python
+class TimelineGeneratorAgent(BaseModel):
+    """Agent responsible for timeline visualization"""
+    
+    def generate_document_timeline(self, document_id: UUID) -> Figure:
+        """Create timeline visualization for a single document"""
+        # Returns Plotly figure for Streamlit
+        
+    def generate_collection_timeline(self, document_ids: List[UUID]) -> Figure:
+        """Create aggregated timeline for multiple documents"""
+        # Returns Plotly figure for Streamlit
+        
+    def merge_events(self, event_sets: List[List[TimelineEvent]]) -> List[TimelineEvent]:
+        """Combine and deduplicate events from multiple documents"""
+```
+
+### 5.2 Database Schema (Supabase)
+
+#### Collections Table
+```sql
+CREATE TABLE collections (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  user_id UUID NOT NULL REFERENCES auth.users(id)
+);
+```
+
+#### Documents Table
+```sql
+CREATE TABLE documents (
+  id UUID PRIMARY KEY,
+  collection_id UUID REFERENCES collections(id),
+  file_name TEXT NOT NULL,
+  file_path TEXT NOT NULL,
+  file_size INTEGER NOT NULL,
+  mime_type TEXT NOT NULL,
+  uploaded_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  processed BOOLEAN DEFAULT FALSE,
+  processed_at TIMESTAMP WITH TIME ZONE,
+  summary TEXT,
+  extraction_metadata JSONB,
+  user_id UUID NOT NULL REFERENCES auth.users(id)
+);
+```
+
+#### Timeline Events Table
+```sql
+CREATE TABLE timeline_events (
+  id UUID PRIMARY KEY,
+  document_id UUID REFERENCES documents(id),
+  event_date TIMESTAMP WITH TIME ZONE NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  importance INTEGER CHECK (importance BETWEEN 1 AND 10),
+  category TEXT,
+  actors JSONB DEFAULT '[]',
+  location TEXT,
+  confidence_score FLOAT CHECK (confidence_score BETWEEN 0 AND 1)
+);
+```
+
+#### Document Embeddings Table
+```sql
+CREATE TABLE document_embeddings (
+  id UUID PRIMARY KEY,
+  document_id UUID REFERENCES documents(id),
+  chunk_index INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  embedding VECTOR(1536),
+  source_element_id TEXT NOT NULL,
+  element_type TEXT NOT NULL,
+  element_metadata JSONB
+);
+```
+
+### 5.3 LLM Integration
+
+#### Event Extraction Prompt Template
+```
+You are a specialized system that extracts chronological events from documents.
+Please analyze the following document content and identify all events with associated dates.
+
+The document is a {document_type} file titled "{document_title}".
+
+For each event, extract:
+1. Event date (format as ISO-8601 when possible)
+2. Event title (concise description)
+3. Detailed description (1-2 sentences)
+4. Importance (1-10 scale)
+5. Category (if applicable)
+6. Key actors involved
+7. Location (if mentioned)
+8. Reference to the source section or page
+9. Confidence score (0.0-1.0) indicating your certainty about the date
+
+FORMAT YOUR RESPONSE AS A VALID JSON ARRAY OF EVENTS.
+
+DOCUMENT CONTENT:
+{document_content}
+```
+
+## 6. Unstructured Integration
+
+### 6.1 Document Extraction Pipeline
+```python
+from unstructured.partition.auto import partition
+from unstructured.staging.base import elements_to_json
+
+def extract_document_content(file_path: str, mime_type: str) -> List[Element]:
+    """Extract content from document using Unstructured's auto partition"""
+    # Handle different file types appropriately
+    elements = partition(
+        filename=file_path,
+        strategy="auto",
+        include_metadata=True
+    )
+    return elements
+
+def extract_structured_data(elements: List[Element]) -> Dict[str, Any]:
+    """Process elements into structured data"""
+    # Convert elements to structured format
+    json_elements = elements_to_json(elements)
+    
+    # Extract text content
+    text_content = "\n\n".join([elem.get("text", "") for elem in json_elements])
+    
+    # Extract metadata
+    metadata = {
+        "title": next((elem.get("metadata", {}).get("title") for elem in json_elements 
+                      if elem.get("metadata", {}).get("title")), None),
+        "author": next((elem.get("metadata", {}).get("author") for elem in json_elements 
+                       if elem.get("metadata", {}).get("author")), None),
+        "date": next((elem.get("metadata", {}).get("date") for elem in json_elements 
+                     if elem.get("metadata", {}).get("date")), None),
+        "element_count": len(json_elements),
+        "element_types": {elem.get("type") for elem in json_elements},
+    }
+    
+    return {
+        "elements": json_elements,
+        "text": text_content,
+        "metadata": metadata
+    }
+```
+
+### 6.2 Element-to-Chunk Conversion
+```python
+def create_chunks_from_elements(elements: List[Element], chunk_size: int = 1000) -> List[TextChunk]:
+    """Convert Unstructured elements to text chunks for embedding"""
+    chunks = []
+    current_chunk = []
+    current_size = 0
+    
+    for element in elements:
+        # Skip non-text elements
+        if not hasattr(element, "text") or not element.text:
+            continue
+            
+        element_text = element.text
+        element_size = len(element_text)
+        
+        # If adding this element exceeds chunk size and we already have content,
+        # finish the current chunk and start a new one
+        if current_size + element_size > chunk_size and current_chunk:
+            chunks.append(TextChunk(
+                content="".join(current_chunk),
+                element_ids=[e.id for e in current_chunk],
+                metadata={
+                    "element_types": [type(e).__name__ for e in current_chunk]
+                }
+            ))
+            current_chunk = []
+            current_size = 0
+        
+        # If a single element is larger than chunk_size, split it
+        if element_size > chunk_size:
+            # Split into smaller chunks
+            words = element_text.split()
+            sub_chunks = []
+            sub_chunk = []
+            sub_size = 0
+            
+            for word in words:
+                word_size = len(word) + 1  # +1 for space
+                if sub_size + word_size > chunk_size and sub_chunk:
+                    sub_chunks.append(" ".join(sub_chunk))
+                    sub_chunk = []
+                    sub_size = 0
+                
+                sub_chunk.append(word)
+                sub_size += word_size
+            
+            if sub_chunk:
+                sub_chunks.append(" ".join(sub_chunk))
+            
+            # Add each sub-chunk
+            for sub_chunk_text in sub_chunks:
+                chunks.append(TextChunk(
+                    content=sub_chunk_text,
+                    element_ids=[element.id],
+                    metadata={
+                        "element_types": [type(element).__name__],
+                        "is_split": True
+                    }
+                ))
+        else:
+            # Add element to current chunk
+            current_chunk.append(element)
+            current_size += element_size
+    
+    # Add any remaining content
+    if current_chunk:
+        chunks.append(TextChunk(
+            content="".join([e.text for e in current_chunk]),
+            element_ids=[e.id for e in current_chunk],
+            metadata={
+                "element_types": [type(e).__name__ for e in current_chunk]
+            }
+        ))
+    
+    return chunks
+```
+
+### 6.3 Document Type Handling
+```python
+def get_mime_type_processor(mime_type: str):
+    """Return appropriate Unstructured processor based on mime_type"""
+    mime_type_map = {
+        "application/pdf": {
+            "function": partition_pdf,
+            "options": {"include_metadata": True}
+        },
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+            "function": partition_docx,
+            "options": {"include_metadata": True}
+        },
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation": {
+            "function": partition_pptx,
+            "options": {}
+        },
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+            "function": partition_xlsx,
+            "options": {}
+        },
+        "text/plain": {
+            "function": partition_text,
+            "options": {}
+        },
+        "text/html": {
+            "function": partition_html,
+            "options": {"include_metadata": True}
+        },
+        "message/rfc822": {
+            "function": partition_email,
+            "options": {"include_metadata": True}
+        },
+        "image/jpeg": {
+            "function": partition_image,
+            "options": {"strategy": "ocr"}
+        },
+        "image/png": {
+            "function": partition_image,
+            "options": {"strategy": "ocr"}
+        },
+        "application/json": {
+            "function": partition_json,
+            "options": {}
+        },
+        "application/xml": {
+            "function": partition_xml,
+            "options": {}
+        }
+    }
+    
+    return mime_type_map.get(mime_type, {
+        "function": partition,
+        "options": {"strategy": "auto", "include_metadata": True}
+    })
+```
+
+## 7. User Interface (Streamlit)
+
+### 7.1 Streamlit App Structure
+```
+app/
+├── main.py                 # Main Streamlit application entry point
+├── pages/
+│   ├── collections.py      # Collection management interface
+│   ├── documents.py        # Document upload and processing
+│   ├── timeline_view.py    # Timeline visualization
+│   └── search.py           # Search interface
+├── utils/
+│   ├── supabase.py         # Database connection utilities
+│   ├── document_processor.py  # Unstructured document processing
+│   ├── llm_client.py       # LLM API client
+│   └── visualization.py    # Timeline visualization utilities
+├── agents/
+│   ├── processor_agent.py  # Document processing agent
+│   ├── timeline_agent.py   # Timeline generation agent
+│   └── timeline_extractor_agent.py   # Timeline UI generation agent
+└── models/
+    └── pydantic_models.py  # Data models
+```
+
+### 7.2 Key Screens
+
+1. **Dashboard (main.py)**
+   - Sidebar navigation to all sections
+   - Collection summary metrics
+   - Recent activity feed
+   - Processing status indicators
+   
+2. **Collection Management (collections.py)**
+   - Form to create/edit collections
+   - List of existing collections with stats
+   - Collection deletion functionality
+   
+3. **Document Management (documents.py)**
+   - Collection selector
+   - File uploader for multiple document types
+   - Document list with file type indicators
+   - Processing button and progress tracking
+   
+4. **Timeline View (timeline_view.py)**
+   - Document selector (single or multiple)
+   - Interactive timeline visualization (Plotly)
+   - Event filtering and search
+   - Timeline export options
+   
+5. **Search Interface (search.py)**
+   - Search input field
+   - Collection scope selector
+   - Results with relevance indicators
+   - Preview of matched context
+
+### 7.3 Timeline Visualization Requirements
+- Interactive Plotly timeline chart embedded in Streamlit
+- Horizontal timeline orientation with scrolling/zooming
+- Event clustering for dense time periods
+- Color coding by document source or category
+- Hover tooltips for quick event info
+- Click interaction for detailed event view
+- Date range slider for filtering
+- Export functionality (PNG, CSV, JSON)
+
+### 7.4 Streamlit UI Components
+
+#### Document Upload with Multi-Format Support
+```python
+# documents.py
+import streamlit as st
+from utils.supabase import get_collections, upload_document
+import mimetypes
+
+st.header("Upload Documents")
+
+collections = get_collections()
+collection_id = st.selectbox("Select Collection", 
+                             options=[c.id for c in collections],
+                             format_func=lambda id: next(c.name for c in collections if c.id == id))
+
+# Define supported file types
+supported_types = [
+    "pdf", "docx", "doc", "pptx", "ppt", "xlsx", "xls", 
+    "txt", "html", "htm", "eml", "msg", "jpg", "jpeg", "png", "md", "json", "xml"
+]
+
+uploaded_files = st.file_uploader("Upload Documents", 
+                                 type=supported_types, 
+                                 accept_multiple_files=True)
+
+if uploaded_files and st.button("Upload Files"):
+    for file in uploaded_files:
+        # Get mime type
+        mime_type, _ = mimetypes.guess_type(file.name)
+        if not mime_type:
+            mime_type = "application/octet-stream"
+            
+        with st.spinner(f"Uploading {file.name}..."):
+            document_id = upload_document(collection_id, file, mime_type)
+        st.success(f"Uploaded {file.name} successfully!")
+```
+
+#### Document Processing Status
+```python
+# documents.py
+import streamlit as st
+from utils.supabase import get_documents, process_document
+
+st.header("Process Documents")
+
+collections = get_collections()
+collection_id = st.selectbox("Select Collection", 
+                            options=[c.id for c in collections],
+                            format_func=lambda id: next(c.name for c in collections if c.id == id))
+
+documents = get_documents(collection_id, processed=False)
+
+if documents:
+    st.subheader("Unprocessed Documents")
+    
+    # Create a form for document selection
+    with st.form("document_processor"):
+        # Create checkboxes for each document
+        selected_docs = {}
+        for doc in documents:
+            doc_label = f"{doc.file_name} ({mimetypes.guess_extension(doc.mime_type)})"
+            selected_docs[doc.id] = st.checkbox(doc_label, key=f"doc_{doc.id}")
+        
+        # Add a submit button
+        submit_button = st.form_submit_button("Process Selected Documents")
+    
+    if submit_button:
+        # Get selected document IDs
+        docs_to_process = [doc_id for doc_id, selected in selected_docs.items() if selected]
+        
+        if not docs_to_process:
+            st.warning("No documents selected for processing.")
+        else:
+            # Process each selected document
+            progress_bar = st.progress(0)
+            status_text = st.empty()
+            
+            for i, doc_id in enumerate(docs_to_process):
+                doc = next(d for d in documents if d.id == doc_id)
+                status_text.text(f"Processing {doc.file_name}...")
+                
+                try:
+                    process_document(doc_id)
+                    st.success(f"Successfully processed {doc.file_name}")
+                except Exception as e:
+                    st.error(f"Error processing {doc.file_name}: {str(e)}")
+                
+                # Update progress
+                progress_bar.progress((i + 1) / len(docs_to_process))
+                
+            status_text.text("Processing complete!")
+else:
+    st.info("No unprocessed documents found in this collection.")
+```
+
+#### Timeline Visualization with Document Type Indicators
+```python
+# timeline_view.py
+import streamlit as st
+import plotly.express as px
+from utils.supabase import get_documents, get_events
+from utils.visualization import create_timeline_figure
+import mimetypes
+
+st.header("Timeline Visualization")
+
+# Document selection
+collections = get_collections()
+collection_id = st.selectbox("Select Collection", [c.id for c in collections],
+                            format_func=lambda id: next(c.name for c in collections if c.id == id))
+
+documents = get_documents(collection_id, processed=True)
+
+if documents:
+    # Create document options with file type indicators
+    doc_options = {}
+    for doc in documents:
+        file_ext = mimetypes.guess_extension(doc.mime_type) or ""
+        doc_options[doc.id] = f"{doc.file_name} [{file_ext[1:].upper()}]"
+    
+    selected_docs = st.multiselect("Select Documents", 
+                                  options=list(doc_options.keys()),
+                                  format_func=lambda id: doc_options[id])
+    
+    if selected_docs:
+        # Get events and create timeline
+        events = []
+        for doc_id in selected_docs:
+            doc_events = get_events(doc_id)
+            events.extend(doc_events)
+        
+        # Create and display timeline
+        fig = create_timeline_figure(events)
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Event details on click
+        selected_event = st.session_state.get("selected_event", None)
+        if selected_event:
+            st.subheader(selected_event.title)
+            st.write(f"**Date:** {selected_event.event_date}")
+            st.write(f"**Description:** {selected_event.description}")
+            # Display other event details
+    else:
+        st.info("Please select at least one document to view its timeline.")
+else:
+    st.info("No processed documents found in this collection.")
+```
+
+## 8. Non-Functional Requirements
+
+### 8.1 Performance
+- Document processing time varies by file type:
+  - PDF/Word: < 2 minutes for 100 pages
+  - Image OCR: < 3 minutes for 20 images
+  - Spreadsheets: < 2 minutes for 50 sheets
+- Timeline rendering < 3 seconds for up to 100 events
+- Streamlit app response time < 2 seconds for major operations
+
+### 8.2 Scalability
+- Support for collections with up to 1000 documents
+- Handle documents up to 50MB in size
+- Support timelines with up to 500 combined events
+
+### 8.3 Security
+- Supabase Row Level Security for multi-user support
+- Secure file storage with access controls
+- Authentication via Streamlit-Supabase integration
+
+### 8.4 Compliance
+- GDPR compliance for EU users
+- Data retention policies
+- Export/deletion of user data
+
+## 9. Implementation Phases
+
+### Phase 1: Core Functionality
+- Basic Streamlit UI with collection and document management
+- Unstructured integration for PDF and text documents
+- Simple timeline visualization for single documents
+- Document embedding and storage
+
+### Phase 2: Extended Format Support
+- Add support for Office documents (Word, PowerPoint, Excel)
+- Add support for email formats
+- Add support for image OCR
+- Improved event extraction accuracy
+
+### Phase 3: Advanced Features
+- Multi-document timeline visualization in Plotly
+- Search functionality
+- Advanced filtering with Streamlit widgets
+- Export functionality
+- Multi-modal support for cost management
+
+## 10. Dependencies
+streamlit>=1.22.0
+pydantic>=2.0.0
+plotly>=5.14.0
+pandas>=2.0.0
+supabase>=1.0.3
+unstructured>=0.8.0
+unstructured-inference>=0.5.0
+langchain>=0.1.0
+langchain-community>=0.0.10
+openai>=0.27.8
+numpy>=1.24.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.6
+aiohttp>=3.8.5
+asyncio>=3.4.3
+pi-heif>=0.22.0
+pdf2image>=1.17.0
+python-docx>=1.1.2
+tiktoken>=0.9.0
+pytest-asyncio==0.23.5 
+
+## 11. Metrics & Success Criteria
+11.1 User Metrics
+
+Average time saved per document analysis
+Number of documents processed per collection
+Search query success rate
+Document type diversity in collections
+
+11.2 Technical Metrics
+
+Event extraction accuracy by document type
+Processing completion rate
+System response times
+Error rates by document type
+
+12. Open Questions & Considerations
+
+How will the system handle documents with unclear or implied dates?
+What strategies will be employed for event deduplication across documents?
+How should extraction quality be evaluated across different document types?
+What fallback strategies should be implemented for difficult-to-process documents?
+How will the system handle mixed-language documents?
