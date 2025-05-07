@@ -128,11 +128,7 @@ def main():
     error_container = st.container()
     
     # Add a toggle for log visibility in the sidebar
-    col1, col2 = st.sidebar.columns([1, 4])
-    with col1:
-        st.image("app/assets/black.svg", width=30)
-    with col2:
-        st.markdown("<h1 style='margin: 0;'>Klective</h1>", unsafe_allow_html=True)
+    st.sidebar.image("app/assets/black.svg", width=30)
     st.sidebar.checkbox("Show Logs", value=st.session_state.show_logs, key="show_logs")
     
     # Start timeline processor if not already running
