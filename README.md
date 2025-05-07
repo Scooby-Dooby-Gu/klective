@@ -30,7 +30,7 @@ Klective is a document processing and timeline extraction application that helps
 ## Running the Application
 
 ```bash
-streamlit run app/streamlit.py
+streamlit run run.py
 ```
 
 ## License
