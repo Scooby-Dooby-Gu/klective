@@ -1,6 +1,6 @@
-# Klective
+# Tesseract
 
-Klective is a document processing and timeline extraction application that helps users analyze and visualize chronological events from their documents.
+Tesseract is a document processing and timeline extraction application that helps users analyze and visualize chronological events from their documents.
 
 ## Features
 
