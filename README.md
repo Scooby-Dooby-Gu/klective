@@ -1,6 +1,6 @@
-# Tesseract
+# K - Tesseract
 
-Tesseract is a document processing and timeline extraction application that helps users analyze and visualize chronological events from their documents.
+K - Tesseract is a document processing and timeline extraction application that helps users analyze and visualize chronological events from their documents.
 
 ## Features
 
