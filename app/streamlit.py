@@ -113,7 +113,7 @@ def main():
     """Main entry point for the Streamlit application."""
     # Configure Streamlit page
     st.set_page_config(
-        page_title="Tesseract",
+        page_title="Klective",
         page_icon="app/assets/gradient.svg",
         layout="wide"
     )
