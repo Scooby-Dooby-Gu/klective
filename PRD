@@ -3,7 +3,7 @@
 ## 1. Overview
 
 ### 1.1 Product Vision
-Klective is a document analysis platform that transforms unstructured content from various document formats into structured, chronological timelines. The system extracts key events from documents, organizes them by date, and visualizes them in interactive time series interfaces, both individually and across document collections.
+K - Tesseract is a document analysis platform that transforms unstructured content from various document formats into structured, chronological timelines. The system extracts key events from documents, organizes them by date, and visualizes them in interactive time series interfaces, both individually and across document collections.
 
 ### 1.2 Product Goals
 - Enable users to extract chronological events from multiple document types automatically
